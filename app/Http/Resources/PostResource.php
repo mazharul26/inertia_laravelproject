@@ -18,7 +18,7 @@ class PostResource extends JsonResource
             'id'         => $this->id,
             'title'      => $this->title,
             'url'      => $this->url,
-            'description'    => substr($this->description, 0, 150) . '...',
+            'description'    => substr($this->description, 0, 15) . '...',
             'post_date' => $this->post_date,
         ];
     }

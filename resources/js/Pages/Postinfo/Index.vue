@@ -1,18 +1,25 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import Pagination from '@/Components/Pagination.vue';
 import { Head,Link,useForm } from '@inertiajs/vue3';
+import { defineComponent } from 'vue';
 
-defineProps({ posts: Array });
+defineProps({ posts: Object });
 const deleteform = useForm({
 
 });
+defineComponent({
+    Pagination
+})
+
 const deletepostinfo = (post_id)=>{
   //alert(post_id)
   if(confirm('Are you sure to delete this post ?'))
   {
     deleteform.delete(route('post.destroy',post_id));
   }
-}
+};
+
 </script>
 <template>
    <Head title="Post Information"></Head>
@@ -21,7 +28,7 @@ const deletepostinfo = (post_id)=>{
             <Link :href="route('post.create')" class="font-semibold text-xl bg-green-500 text-white  t leading-tight btn btn-success p-2" >Post Create</Link>
         </template>
         <div>
-            <table id="customers" s>
+            <table id="customers">
                     <tr>
                         <th>Title</th>
                         <th>Date</th>
@@ -29,9 +36,9 @@ const deletepostinfo = (post_id)=>{
                         <th>Description</th>
                         <th>Action</th>
                     </tr>
-        <tr v-for="post in posts" :key="post.id">
-            <td>{{ post.post_date }}</td>
+        <tr v-for="post in posts.data" :key="post.id">
              <td>{{ post.title }}</td>
+             <td>{{ post.post_date }}</td>
              <td>{{ post.url }}</td>
             <td>
               {{ (post.description) }}
@@ -42,8 +49,9 @@ const deletepostinfo = (post_id)=>{
 
             </td>
         </tr>
-  
+
 </table>
+   <pagination class="mt-6" :links="posts.links" />
         </div>
    </AuthenticatedLayout>
 </template>

@@ -12,13 +12,14 @@ class PostInfoController extends Controller
     //
     public function index()
     {
-        $posts = PostResource::collection(PostInfo::all());
-      
-        //return $posts;
+        $posts = PostResource::collection(PostInfo::paginate(10));
+
+       // return $posts;
         return Inertia::render('Postinfo/Index', [
             'posts' => $posts
         ]);
     }
+
 
     public function create()
     {
@@ -32,7 +33,7 @@ class PostInfoController extends Controller
             'url' => $request->url,
             'description' => $request->description,
             'post_date' => $request->post_date,
-            
+
         ]);
         return to_route('post.index');
     }
@@ -46,7 +47,7 @@ class PostInfoController extends Controller
 
     public function update(Request $request,$id)
     {
-      
+
         $postData = PostInfo::find($id);
         $postData->title = $request->title;
         $postData->url = $request->url;

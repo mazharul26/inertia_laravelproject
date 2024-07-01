@@ -25,7 +25,7 @@ const submit = () => {
     <template #header>
             <Link :href="route('post.index')" class="font-semibold text-xl text-gray-800 leading-tight btn btn-success" >Back</Link>
         </template>
-        <form @submit.prevent="submit">
+        <form @submit.prevent="submit" style="margin: 20px;">
         <div>
                 <InputLabel for="Title" value="Title" />
 
@@ -85,7 +85,7 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.description" />
             </div>
             <div class="flex items-center justify-end mt-4">
-              
+
 
                 <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Post Save

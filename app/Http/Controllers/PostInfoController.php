@@ -6,13 +6,21 @@ use App\Http\Resources\PostResource;
 use App\Models\PostInfo;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Inertia\Response;
+
+
+
+
 
 class PostInfoController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
-        $posts = PostResource::collection(PostInfo::paginate(10));
+       $search = $request->search ?? '';
+        $posts = PostResource::collection(PostInfo::where('title','like',"%{$search}%")
+                                     ->Orwhere('url','like',"%{$search}%")
+                                    ->paginate(10));
 
        // return $posts;
         return Inertia::render('Postinfo/Index', [

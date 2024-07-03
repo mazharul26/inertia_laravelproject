@@ -2,10 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import Pagination from '@/Components/Pagination.vue';
 import { Head,Link,useForm } from '@inertiajs/vue3';
-import { defineComponent,ref, watch } from 'vue';
-import { router } from '@inertiajs/vue3'
-
-
+import { defineComponent } from 'vue';
 
 defineProps({ posts: Object });
 const deleteform = useForm({
@@ -14,14 +11,7 @@ const deleteform = useForm({
 defineComponent({
     Pagination
 })
-const search = ref(' ');
-const perPage = ref(50);
-watch(search,value =>{
-    router.get('/post',{search:value},{
-            preserveState:true,
-            replace:true
-        });
-});
+
 const deletepostinfo = (post_id)=>{
   //alert(post_id)
   if(confirm('Are you sure to delete this post ?'))
@@ -38,7 +28,6 @@ const deletepostinfo = (post_id)=>{
             <Link :href="route('post.create')" class="font-semibold text-xl bg-green-500 text-white  t leading-tight btn btn-success p-2" >Post Create</Link>
         </template>
         <div>
-            <input v-model="search" placeholder="Typing Search" />
             <table id="customers">
                     <tr>
                         <th>Title</th>
@@ -63,7 +52,7 @@ const deletepostinfo = (post_id)=>{
 
 </table>
         <div class="text-right">
-              <Pagination  :pagination="posts.meta"/>
+            <pagination class="mt-6" :links="posts.links" />
         </div>
         </div>
    </AuthenticatedLayout>

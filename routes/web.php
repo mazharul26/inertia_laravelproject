@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PostInfoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserDataController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,7 +34,7 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/post', [PostInfoController::class, 'index'])->name('post.index');
     Route::get('/post/create', [PostInfoController::class, 'create'])->name('post.create');
-
+    Route::get('list-users', [UserDataController::class, 'index']);
     Route::post('/post/store', [PostInfoController::class, 'store'])->name('post.store');
     Route::get('/post/{id}/edit', [PostInfoController::class, 'edit'])->name('post.edit');
     Route::post('/post/update/{id}', [PostInfoController::class, 'update'])->name('post.update');
